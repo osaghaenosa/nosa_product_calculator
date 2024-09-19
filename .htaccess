@@ -1,0 +1,27 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^dashboard/ dashboard/url.php [NC,L,QSA]
+RewriteRule ^([^/]+)/?$ index.php?page=$1 [NC,L,QSA]
+RewriteRule ^home/([^/]+)/?$ index.php?home=$1 [NC,L,QSA]
+RewriteRule ^admin/([^/]+)/?$ admin/index.php?r=$1 [NC,L,QSA]
+RewriteRule ^about general/about.php [NC,L,QSA]
+RewriteRule ^terms_and_condition general/terms_and_condition.php [NC,L,QSA]
+RewriteRule ^services general/services.php [NC,L,QSA]
+RewriteRule ^policies general/policy.php [NC,L,QSA]
+RewriteRule ^faq general/faq2.html [NC,L,QSA]
+RewriteRule ^contact_us general/contact_us.php [NC,L,QSA]
+RewriteRule ^login/forgot_password login/forgot_password.php [NC,L,QSA]
+RewriteRule ^reset/s login/reset.php [NC,L,QSA]
+RewriteRule ^reset/([^/]+)/?$ login/reset.php?v=$1 [NC,L,QSA]
+RewriteRule ^resetpin/([^/]+)/?$ login/resetpin.php?v=$1 [NC,L,QSA]
+
+RewriteRule ^login/2fa_login login/2fa_login.php [NC,L,QSA]
+RewriteRule ^login/verify login/login_verify.php [NC,L,QSA]
+RewriteRule ^dashboard/i/send_message dashboard/msg_send.php [NC,L,QSA]
+RewriteRule ^dashboard/i/read_messages dashboard/read_messages.php [NC,L,QSA]
+
+RewriteRule ^insurance insurance.php [NC,L,QSA]
+RewriteRule ^savings savings.php [NC,L,QSA]
+RewriteRule ^contact contact.php [NC,L,QSA]
+

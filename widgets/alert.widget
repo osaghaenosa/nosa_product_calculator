@@ -1,0 +1,88 @@
+<?php
+function showAlert($string){
+	echo "<div class=\"alert_bg\">
+    <div class=\"msg\">
+	    <p class=\"text\">$string</p>
+	    <div class=foot>
+	    <button class=\"bttn_okay\">OK</button>
+	    </div>
+    </div>
+    <style>
+    @keyframes start{
+	    from{
+	    margin-top:100px;
+	    }
+	    
+    }
+    .alert_bg{
+    position:fixed;
+    left:0px;
+    top:0px;
+    background-color:rgba(0,0,0,0.5);
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    z-index:100000;
+    backdrop-filter: blur(12px);
+    }
+    .alert_bg .msg{
+    width:250px;
+    height:initial;
+    background-color:white;
+    border:solid 1px #198754;
+    border-radius:3px;
+    padding-top:10px;
+    padding-bottom:20px;
+    padding-left:10px;
+    padding-right:10px;
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+    justify-content:space-between;
+    animation:start 1.0s linear;
+    transition:all 0.4s ease-in;
+    color: black
+    }
+    .msg .text{
+    padding-bottom:20px;
+    word-wrap:break-word;
+    
+    }
+    .msg .foot{
+    display:flex;
+    flex-direction:row-reverse;
+    }
+    .msg .foot button{
+    width:80px;
+    height:25px;
+    border-radius:10px;
+    color: white;
+    background:black;
+    border:none;
+    font-weight:lighter;
+    box-shadow:2px 4px 8px rgba(0,102,204,0.5);
+    }
+    .msg .foot button:focus{
+    outline:none;
+	}
+	.msg .foot button:active{
+    background:darkblue;
+	}
+
+    </style>
+    <script>
+    var alert_bg=document.querySelector(\".alert_bg\");
+    var bttn_okay=document.querySelector(\".bttn_okay\");
+    bttn_okay.onclick=function(){
+    alert_bg.style.display=\"none\";
+    }
+    alert_bg.onclick=function(){
+        alert_bg.style.display=\"none\";
+    }
+    </script>
+</div>";
+}
+?>

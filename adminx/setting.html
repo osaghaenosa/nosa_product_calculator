@@ -1,0 +1,131 @@
+<?php
+if(isset($_GET["c"])){
+  if($_GET["c"] == "transaction_fee"){
+    include("c/t_fee.php");
+  }
+  else if($_GET["c"] == "withdrawal_fee"){
+    include("c/withdrawal_fee.php");
+  }
+  else if($_GET["c"] == "deposit_fee"){
+    include("c/deposit_fee.php");
+  }
+  else if($_GET["c"] == "data_plans"){
+    include("c/data_plans.php");
+  }
+  else if($_GET["c"] == "cable_tv"){
+    include("c/cable_tv.php");
+  }
+  else if($_GET["c"] == "crypto"){
+    include("c/crypto.php");
+  }
+  else if($_GET["c"] == "gift_card"){
+    include("c/gift_card.php");
+  }
+  else if($_GET["c"] == "a2c"){
+    include("c/a2c.php");
+  }
+  else if($_GET["c"] == "dollar_rate"){
+    include("c/dollar_rate.php");
+  }
+  else if($_GET["c"] == "waec"){
+    include("c/waec.php");
+  }
+  else if($_GET["c"] == "neco"){
+    include("c/neco.php");
+  }
+  else if($_GET["c"] == "nabteb"){
+    include("c/nabteb.php");
+  }
+  else if($_GET["c"] == "gce"){
+    include("c/gce.php");
+  }
+}
+?>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <a class="breadcrumb-item active"><small>Dashboard</small> / Settings</a>
+        </ol>
+        
+        
+
+        <div class="title" onclick="toggleDropdown('user-settings')">User Settings <i class="bi bi-chevron-down"></i></div>
+<ul id="user-settings" class="dropdown-content">
+  <a>Account Information</a>
+  <a>Privacy Settings</a>
+  <a>Notification Preferences</a>
+  <a>Profile Customization</a>
+  <a>Security Settings</a>
+</ul>
+
+
+<div class="title" onclick="toggleDropdown('price-settings')">Price Settings <i class="bi bi-chevron-down"></i></div>
+<ul id="price-settings" class="dropdown-content">
+  <a href="?r=settings&c=dollar_rate">Dollar Rate</a>
+  <a href="?r=settings&c=transaction_fee">Transaction Fee</a>
+  <a href="?r=settings&c=withdrawal_fee">Withdrawal Fee</a>
+  <a href="?r=settings&c=deposit_fee">Deposit Fee</a>
+  <a href="?r=settings&c=data_plans">Data Plans Pricing</a>
+  
+  <a href="?r=settings&c=cable_tv">Cable/TV Plans Pricing</a>
+  <a href="?r=settings&c=crypto">Crypto Plans</a>
+  <a href="?r=settings&c=gift_card">Giftcard Settings</a>
+  <a href="?r=settings&c=a2c">Airtime to cash Pricing</a>
+  <hr>
+  <a href="?r=settings&c=waec">WAEC Scratch Card Setting</a>
+  <a href="?r=settings&c=neco">NECO Scratch Card Setting</a>
+  <a href="?r=settings&c=nabteb">NABTEB Scratch Card Setting</a>
+  <a href="?r=settings&c=gce">GCE Scratch Card Setting</a>
+</ul>
+
+<script>
+function toggleDropdown(id) {
+  var dropdown = document.getElementById(id);
+  if (dropdown.style.display === "none") {
+    dropdown.style.display = "flex";
+  } else {
+    dropdown.style.display = "none";
+  }
+}
+</script>
+        
+        
+        
+        
+    </div>
+    <style>
+        /* Style for dropdown */
+        .dropdown-content {
+          display: none;
+          padding-left: 0;
+          padding-bottom: 10px;
+          margin: 0;
+          list-style-type: none;
+          
+          flex-direction: column;
+        }
+        .dropdown-content a{
+            cursor: pointer;
+            background-color: rgba(250, 250, 200, 0.5);
+            padding-top: 10px;
+            padding-bottom:10px;
+            padding-left: 20px;
+        }
+        .dropdown-content a:hover{
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        /* Style for clickable titles */
+        .title {
+          cursor: pointer;
+          padding: 20px 10px 20px 10px;
+          border-bottom: solid 1px gray;
+          
+          margin-top:10px;
+          
+        }
+        .title:hover{
+            box-shadow:5px 5px 10px rgba(0,0,0,0.3);
+        }
+      </style>
+</main>

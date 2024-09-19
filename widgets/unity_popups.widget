@@ -1,0 +1,103 @@
+<?php
+function show_popup_ad(){
+    $popup_image_array = [];
+    $popup_image_array[0] = "<img src=\"../assets/images/ads_show.jpg\" style=\"width:100%; height:initial\">";
+    $popup_image_array[1] = "<img src=\"../assets/images/ads_show2.png\" style=\"width:100%; height:initial\">";
+    $popup_image_array[2] = "<img src=\"../assets/images/ads_3.png\" style=\"width:100%; height:initial\">";
+
+    $random_image = $popup_image_array[rand(0,2)];
+    $info = "<div class=\"unity_popup_bg\">
+            
+                        <button class=\"btn px-4 xclose text-white p-2 fs-4\"><i class=\"bi bi-x-lg\"></i></button>
+                    
+                <div class=\"unity_popup\">
+                    
+                    $random_image
+                    
+                    
+                </div>
+            </div>
+
+            <style>
+                .unity_popup_bg{
+                    position: fixed;
+                    left:0;
+                    top:0;
+                    width:100%;
+                    height:100%;
+                    z-index:1;
+                    display: none;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: rgba(0,0,0,0.5);
+                    backdrop-filter: blur(12px);
+                    
+                }
+                .unity_popup_bg .unity_popup{
+                    background-color: white;
+                    color: black;
+                    width:400px;
+                    height: initial;
+                    padding: 10px 20px 10px 20px;
+                    border-radius: 1rem;
+                    animation: message 0.5s linear 0.3s;
+                    transition: all 0.5s ease-in;
+                }
+                @keyframes message{
+                    from{
+                        transform: translateY(-50px);
+                    }
+                    to{
+                        transform: translateY(0px);
+                    }
+                }
+
+                @media screen and (max-width: 600px){
+                    .unity_popup_bg .unity_popup{
+                        width:250px;
+                        height:initial
+                    }
+                    .t_bg{
+                        background-color: white;
+                        
+                    }
+                    .t_bg2{
+                        background-color: white;
+                    }
+                }
+                @media screen and (max-width: 900px) and (min-width: 800px){
+                    .unity_popup_bg .unity_popup{
+                        width:250px;
+                        height:initial;
+
+                    }
+                    .unity_popup_bg{
+                        margin-left:150px;
+                    }
+                }
+
+            </style>
+
+            <script>
+                var popup_unity = document.querySelector(\".unity_popup_bg\");
+                var xclose = document.querySelector(\".xclose\");
+                window.addEventListener(\"load\",function(){
+                    var tin = 0;
+                    var itxx = setInterval(function(){
+                        tin++;
+                        if(tin>100){
+                            popup_unity.style.display=\"flex\";
+                            clearInterval(itxx);
+                        }
+                    })
+                    
+                });
+                xclose.onclick=function(){
+                    popup_unity.style.display = \"none\";
+                }
+            </script>";
+
+            echo $info;
+}
+?>

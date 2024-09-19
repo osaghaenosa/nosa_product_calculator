@@ -1,0 +1,255 @@
+<?php
+include("csrf_token.php");
+
+core_include("base.html");
+
+include("widgets/alert.widget");
+include("widgets/loading2.widget");
+
+top();
+?>
+<h1>Create a free Account</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <img src="static/images/uiiuy.png" style="width: 100%; height: initial;">
+        </div>
+        <div class="col-md-5">
+            <form id="mystery_form" class="d-flex flex-column gap-2 px-2" method="post">
+                <div class="" style="display:flex">
+                    <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+                    <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                        <input
+                        <?php if(isset($_POST["fullname"]) && !empty($_POST["fullname"])){echo "value=".$_POST["fullname"];} ?>
+                            type="text"
+                            class="form-control ps-5"
+                            id="floatingInput"
+                            placeholder="Full Name"
+                            name="fullname"
+                            style="width:100%">
+                            <label for="floatingInput" class="ms-5">Full Name</label>
+                        </div>
+                </div>
+
+                <br>
+
+                <div class="" style="display:flex">
+                    <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+                    <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                        <input
+                        <?php if(isset($_POST["phone"]) && !empty($_POST["phone"])){echo "value=".$_POST["phone"];} ?>
+                            type="text"
+                            class="form-control ps-5"
+                            id="floatingInput"
+                            placeholder="Phone Number"
+                            name="phone"
+                            style="width:100%">
+                            <label for="floatingInput" class="ms-5">Phone Number</label>
+                        </div>
+                </div>
+
+                <br>
+                <div class="" style="display:flex">
+                    <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+                    <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                        <input
+                        <?php if(isset($_POST["email"]) && !empty($_POST["email"])){echo "value=".$_POST["email"];} ?>
+                            type="text"
+                            class="form-control ps-5"
+                            id="floatingInput"
+                            placeholder="Email"
+                            name="email"
+                            style="width:100%">
+                            <label for="floatingInput" class="ms-5">Email</label>
+                        </div>
+                </div>
+                    <br>
+                    
+                    
+
+                    <div class="" style="display:flex">
+                        <i class="bi bi-lock fs-5 my-3" style="z-index: 1; color: var(--theme_color);"></i>
+                        <div class="form-floating mb-3 flex-fill border border-1 border-dark" id="p_box" style="width:100%; margin-left: -2rem">
+                            
+                            <input
+                                <?php if(isset($_POST["passcode"]) && !empty($_POST["passcode"])){echo "value=".$_POST["passcode"];} ?>
+                                class="form-control ps-5"
+                                id="floatingPassword"
+                                type="password"
+                                placeholder="Password"
+                                name="passcode"
+                                style="width:100%">
+                                <label for="floatingPassword" class="ms-5">Password</label>
+
+                            </div>
+                            
+                                <a
+                                    class="my-3 eye_s"
+                                    onclick="showPassword()"
+                                    style="font-size:20px;position:absolute;margin-left:480px;color:var(--theme_color)">
+                                    <i class="bi bi-eye" id="eye_open"></i>
+                                    <i class="bi bi-eye-slash" id="eye_closed"></i>
+                                </a>
+                            </div>
+
+                            <div class="" style="display:flex">
+                                <i class="bi bi-lock fs-5 my-3" style="z-index: 1; color: var(--theme_color);"></i>
+                                <div class="form-floating mb-3 flex-fill border border-1 border-dark" id="p_box" style="width:100%; margin-left: -2rem">
+                                    
+                                    <input
+                                        <?php if(isset($_POST["passcodeb"]) && !empty($_POST["passcodeb"])){echo "value=".$_POST["passcodeb"];} ?>
+                                        class="form-control ps-5"
+                                        id="floatingPassword2"
+                                        type="password"
+                                        placeholder="Password"
+                                        name="passcodeb"
+                                        style="width:100%">
+                                        <label for="floatingPassword2" class="ms-5">Confirm Password</label>
+        
+                                    </div>
+                                    
+                                        <a
+                                            class="my-3 eye_s"
+                                            onclick="showPasswordb()"
+                                            style="font-size:20px;position:absolute;margin-left:480px;color:var(--theme_color)">
+                                            <i class="bi bi-eye" id="eye_open2"></i>
+                                            <i class="bi bi-eye-slash" id="eye_closed2"></i>
+                                        </a>
+                                    </div>
+
+                            <br><br>
+
+                            <?php
+                      csrf_token_input();
+                    ?>
+                            <!-- <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" value="remember-me">
+                                        Remember me
+                                    </label>
+                                </div> -->
+                                <span>By creating an account with us, you have agreed to our <a href="">terms and conditions</a>.</span>
+                                <br><br>
+                                <div class="form-floating mb-3">
+                                    <button class="btn w-100 py-2 text-white" id="login_button" type="submit" style="background-color: var(--theme_color);">Register</button>
+                                    <br><br>
+                                    <a href="login" class="btn btn-outline-dark w-100 py-2 mt-3" type="submit">Login to my Account</a>
+                                    
+                                </div>
+                      
+                            </form>
+        </div>
+    </div>
+    <style>
+        @media screen and (max-width:600px){
+        .eye_s{
+          margin-left: 80% !important;
+        }
+      }
+    </style>
+    <script>
+        var floatingPassword = document.querySelector("#floatingPassword");
+        var floatingPasswordb = document.querySelector("#floatingPassword2");
+
+        
+        var eye_open = document.querySelector("#eye_open");
+        var eye_closed = document.querySelector("#eye_closed");
+
+        var eye_openb = document.querySelector("#eye_open2");
+        var eye_closedb = document.querySelector("#eye_closed2");
+    
+        eye_closed.style.display = "block";
+        eye_open.style.display = "none";
+
+        eye_closedb.style.display = "block";
+        eye_openb.style.display = "none";
+        
+        
+        var tg = 0, tgb = 0;
+        function showPassword(){
+          tg+=1;
+          
+         
+          if(tg ==1){
+            floatingPassword.type = "text";
+            eye_closed.style.display = "none";
+            eye_open.style.display = "block";
+            
+          }
+          else{
+            floatingPassword.type = "password";
+    
+            eye_closed.style.display = "block";
+            eye_open.style.display = "none";
+          }
+          
+      
+        }
+        function showPasswordb(){
+          tgb+=1;
+          
+         
+          if(tgb ==1){
+            floatingPasswordb.type = "text";
+            eye_closedb.style.display = "none";
+            eye_openb.style.display = "block";
+            
+          }
+          else{
+            floatingPasswordb.type = "password";
+    
+            eye_closedb.style.display = "block";
+            eye_openb.style.display = "none";
+          }
+          
+      
+        }
+        setInterval(function(){
+          if(tg>1){
+            
+            tg=0;
+          }
+          if(tg == 0){
+            floatingPassword.type = "password";
+    
+      
+            //p_box_input[0].value = p_box_input[1].value;
+          }
+          else if(tg == 1){
+            floatingPassword.type = "text";
+            
+            //p_box_input[1].value = p_box_input[0].value;
+          }
+
+          if(tgb>1){
+            
+            tgb=0;
+          }
+          if(tgb == 0){
+            floatingPasswordb.type = "password";
+    
+      
+            //p_box_input[0].value = p_box_input[1].value;
+          }
+          else if(tgb == 1){
+            floatingPasswordb.type = "text";
+            
+            //p_box_input[1].value = p_box_input[0].value;
+          }
+        },10);
+      
+        //the mystery form
+        var mystery_form = document.querySelector("#mystery_form");
+        var login_button = document.querySelector("#login_button");
+      
+        mystery_form.onsubmit = function(){
+          login_button.style.backgroundColor = "lightgreen";
+          login_button.innerHTML = "<?php spinner('20px'); ?>";
+          login_button.disabled = "true";
+        }
+      </script>
+</div>
+
+<?php
+bottom();
+?>

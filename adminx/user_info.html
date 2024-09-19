@@ -1,0 +1,589 @@
+<?php
+$user_link = "../users/".$_GET["users"];
+$wallet_link = $user_link."/wallets/amount.x";
+$t_history_link = $user_link."/t_history.json";
+$activity_log_link = $user_link."/activity_log.json";
+$user_info_link = $user_link."/info.inf";
+$user_info_linkb = $user_link."/other_info.db";
+$message_link = $user_link."/messages/messages.m";
+$user_image_link = $user_link."/images/avatar.jpg";
+
+//get the users name and other basic details
+
+$user_info = file_get_contents($user_info_link);
+
+$user_info_array = explode("&,",$user_info);
+
+$user_infob = file_get_contents($user_info_linkb);
+
+$user_info_arrayb = explode("&,",$user_infob);
+
+$name = $user_info_array[0];
+$middle_name = $user_info_arrayb[0];
+$username = $user_info_array[1];
+$email = $user_info_array[2];
+$password = $user_info_array[3];
+$phone_number = $user_info_array[4];
+$gender = $user_info_array[5];
+$dob = $user_info_array[6];
+$country_code = $user_info_array[7];
+
+$marital_status = $user_info_array[15];
+$zip_code = $user_info_arrayb[1];
+$house_address = $user_info_arrayb[2];
+$occupation = $user_info_arrayb[3];
+$salary = $user_info_arrayb[4];
+$account_type = $user_info_arrayb[5];
+$account_currency = $user_info_arrayb[6];
+$fathers_name = $user_info_array[13];
+$mothers_name = $user_info_array[14];
+$next_of_kin_name = $user_info_array[9];
+$next_of_kin_phone = $user_info_array[10];
+$next_of_kin_address = $user_info_array[11];
+$next_of_kin_relationship= $user_info_array[12];
+
+
+$wallet = file_get_contents($wallet_link);
+
+// transaction history
+$t_history = file_get_contents($t_history_link);
+
+//decode the t_history file
+
+$decoded_history = json_decode($t_history, true);
+
+
+
+
+?>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4"><?php echo $name; ?></h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"><small><small>Dashboard / </small>User</small> / <?php echo $_GET["users"]; ?></li>
+        </ol>
+        
+        
+        <div class="row d-flex flex-wrap gap-2">
+            <div class="col-md-5">
+                <div class="d-flex flex-column align-items-center flex-lg-row gap-2">
+                    <div style="width: 100px; height: 100px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 50%;"><img src="<?php echo $user_image_link; ?>" class="img_fluid" width="100%; height100%"></div>
+                    <label class="fw-bold d-flex flex-column"><span class="display-6"><?php echo $name; ?> <i class="bi bi-check-circle-fill text-success" style="font-size: medium;"></i></span><span>₦ <?php echo $wallet; ?></span></label>
+                    
+                </div>
+                <!-- <div class="mx-5 my-3" style=""><a <?php echo"href=?message=".$_GET["users"]."&message_box=true" ?> class="px-2 py-1 rounded-circle bg-primary text-white lead" ><i class="bi bi-chat-right-dots-fill "></i></a></div> -->
+                <!-- About me -->
+                <hr>
+                <hr>
+                <div class="px-2 py-2 text-white bg-primary" style="width: 100%;">
+                    Basic details <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="d-flex flex-column gap-3 pt-2">
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">First Name: </li>
+                        <li><?php echo $name; ?></li>
+                    </ul>
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Surname: </li>
+                        <li><?php echo $username; ?></li>
+                    </ul>
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Email: </li>
+                        <li style="width: 140px; overflow-x: scroll;"><?php echo $email; ?></li>
+                    </ul>
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Phone Number: </li>
+                        <li><?php echo $country_code.$phone_number; ?></li>
+                    </ul>
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Gender: </li>
+                        <li><?php echo $gender; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">D.O.B.: </li>
+                        <li><?php echo $dob; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Marital Status: </li>
+                        <li><?php echo $marital_status; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Country code: </li>
+                        <li><?php echo $country_code ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Zip Code: </li>
+                        <li><?php echo $zip_code; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">House Address: </li>
+                        <li><?php echo $house_address; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Occupation: </li>
+                        <li><?php echo $occupation; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Annual Income Range: </li>
+                        <li><?php echo $salary; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Account Type: </li>
+                        <li><?php echo $account_type; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Account Currency: </li>
+                        <li><?php echo $account_currency; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Father's NAme: </li>
+                        <li><?php echo $fathers_name; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Mother's Name: </li>
+                        <li><?php echo $mothers_name; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Next of Kins Name: </li>
+                        <li><?php echo $next_of_kin_name; ?></li>
+                    </ul>
+                    
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Next of Kins Phone Number: </li>
+                        <li><?php echo $next_of_kin_phone; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Next of Kins Address: </li>
+                        <li><?php echo $next_of_kin_address; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Relationship with Next of kin: </li>
+                        <li><?php echo $next_of_kin_relationship; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3">
+                        <li style="width:180px;font-weight: bold;">Password: </li>
+                        <li><?php echo $password; ?></li>
+                    </ul>
+
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3 align-items-center">
+                        <a <?php echo"href=?r=home&users=".$_GET["users"]."&selection=editprofile"; ?> class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i> Edit User Details</a>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <br>
+                <div class="px-2 py-2 text-white bg-primary" style="width: 100%;">
+                    Security and Settings <i class="bi bi-lock"></i>
+                </div>
+                <br>
+                <div class="d-flex flex-column gap-3">
+                    <!-- <ul style="list-style: none;" class="list-style-none d-flex gap-3 align-items-center">
+                        <li style="width:180px;font-weight: bold;">Password: </li>
+                        <li class="text-success d-flex gap-2 align-items-center"><span>Set</span><div> <a onclick="reset_password_form()" class="btn btn-sm btn-primary">Send Reset Link</a></div> <?php if(isset($_SESSION["checkmark"])){echo $_SESSION["checkmark"]; unset($_SESSION["checkmark"]);} ?></li>
+                    </ul>
+                    <ul style="list-style: none;" class="list-style-none d-flex gap-3 align-items-center">
+                        <li style="width:180px;font-weight: bold;">Transaction Pin: </li>
+                        <li class="text-success d-flex gap-2 align-items-center"><span>Set</span><div> <button onclick="reset_pin_form()" class="btn btn-sm btn-primary">Send Reset Link</button></div></li>
+                    </ul> -->
+                    <div style="list-style: none;" class="list-style-none d-flex gap-3 align-items-center justify-content-between flex-wrap">
+                        <button class="btn btn-sm btn-danger" onclick="delete_user_popup()"><i class="bi bi-trash"></i> Delete User</button>
+                        <?php
+// Check if the users parameter is set in the GET request
+if(isset($_GET["users"])) {
+    // Sanitize the user input
+    $user = htmlspecialchars($_GET["users"]);
+
+    // Check if the file exists
+    $file_path = "../dashboard/disabled_list.l";
+    if(file_exists($file_path)) {
+        // Read the content of the file
+        $d_list = file_get_contents($file_path);
+
+        // Check if the user is in the disabled list
+        if(strpos($d_list, $user) !== false) {
+            echo "<button class=\"btn btn-sm btn-danger\" onclick=\"resolve_user_popup()\"><i class=\"bi bi-info-circle\"></i> Resolve Disabled Account</button>";
+        } else {
+            
+            echo "<button class=\"btn btn-sm btn-warning\" onclick=\"disable_user_popup()\"><i class=\"bi bi-x\"></i> Disable User</button>";
+        }
+    } else {
+        echo "Disabled list file not found.";
+    }
+
+
+//pend the user
+// Check if the file exists
+    $file_pathb = "../dashboard/pending_list.l";
+    if(file_exists($file_path)) {
+        // Read the content of the file
+        $p_list = file_get_contents($file_pathb);
+
+        // Check if the user is in the disabled list
+        if(strpos($p_list, $user) !== false) {
+            echo "<button class=\"btn btn-sm btn-primary\" onclick=\"resolve_pend_user_popup()\"><i class=\"bi bi-info-circle\"></i> Resolve Pending Account</button>";
+        } else {
+            
+            echo "<button class=\"btn btn-sm btn-primary\" onclick=\"pend_user_popup()\"><i class=\"bi bi-hourglass\"></i> Pend Account</button>";
+        }
+    } else {
+        echo "Pending list file not found.";
+    }
+
+
+
+//dormant the user
+// Check if the file exists
+    $file_pathb = "../dashboard/dormant_list.l";
+    if(file_exists($file_path)) {
+        // Read the content of the file
+        $p_list = file_get_contents($file_pathb);
+
+        // Check if the user is in the disabled list
+        if(strpos($p_list, $user) !== false) {
+            echo "<a href='resolve_dormant_user.php?id=".$_GET["users"]."' class=\"btn btn-sm btn-info\" ><i class=\"bi bi-info-circle\"></i> Resolve Dormant Account</a>";
+        } else {
+            
+            echo "<a href='dormant_user.php?id=".$_GET["users"]."' class=\"btn btn-sm btn-danger\" ><i class=\"bi bi-hourglass\"></i> Dormant Account</a>";
+        }
+    } else {
+        echo "Pending list file not found.";
+    }
+
+
+    //request code the user
+    // Check if the file exists
+        $file_pathb = "../dashboard/code_list.l";
+        if(file_exists($file_path)) {
+            // Read the content of the file
+            $p_list = file_get_contents($file_pathb);
+    
+            // Check if the user is in the disabled list
+            if(strpos($p_list, $user) !== false) {
+                echo "<a href=\"remove_request_code.php?id=".$_GET["users"]."\" class=\"btn btn-sm btn-primary\" ><i class=\"bi bi-info-circle\"></i> Remove Request Code</a>";
+            } else {
+                
+                echo "<a href=\"request_code.php?id=".$_GET["users"]."\" class=\"btn btn-sm btn-primary\" ><i class=\"bi bi-hourglass\"></i> Request Code</a>";
+            }
+        } else {
+            echo "Pending list file not found.";
+        }
+
+
+} else {
+    echo "User parameter not provided.";
+}
+
+?>
+
+                        
+</div>
+<div>
+    <?php 
+    if(strpos(file_get_contents("../dashboard/code_list.l"),  $_GET["users"]) !== FALSE){
+        echo "<div class='p-3 border border-primary border-2'>The User Requested Pin is : ".file_get_contents("../users/".$_GET["users"]."/m_code.txt")."</div>";
+    }
+     ?>
+</div>
+                </div>
+                
+            </div>
+
+            <div class="col-md-6">
+                
+                <div class="px-2 py-2 text-white bg-primary" style="width: 100%;">
+                    Wallet Settings <i class="bi bi-wallet-fill"></i>
+                </div>
+                <br>
+                <p class="display-6 text-muted d-flex flex-column"><span style="font-size: 10px;font-weight: bold;">Available Balance</span><span>₦ <?php echo $wallet; ?></span></p>
+                <div class="d-flex flex-wrap gap-2"><a <?php echo"href=?r=home&users=".$_GET["users"]."&selection=addmoney"; ?> class="btn btn-lg btn-outline-primary">Add Money <i class="bi bi-shield-fill-check"></i></a><a <?php echo"href=?r=home&users=".$_GET["users"]."&selection=withdrawmoney"; ?> class="btn btn-lg btn-outline-primary">Remove Money <i class="bi bi-shield-fill-check"></i></a></div>
+                <!-- About me -->
+                <hr>
+                
+
+                <br>
+
+
+                
+                <div class="px-2 py-2 text-white bg-primary" style="width: 100%;">
+                    Activity Logs <i class="bi bi-clock-history"></i>
+                </div>
+                <div class="card mb-4 shadow">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Activity Logs
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Activity</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Activity</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <?php
+                                //activity Logs
+                                $activity_log =file_get_contents($activity_log_link);
+                                $decoded_activity_log = json_decode($activity_log, true);
+
+                                //loop through the logs and display the logs in the logs place
+
+                                if(isset($decoded_activity_log[1])){
+                                    for($l = 0; $l < count($decoded_activity_log); $l++){
+                                        $log_a = "
+                                        <tr>
+                                            <td>".$decoded_activity_log[$l]["date"]."</td>
+                                            <td>".$decoded_activity_log[$l]["time"]."</td>
+                                            <td>".$decoded_activity_log[$l]["activity"]."</td>
+                                            
+                                        </tr>
+                                        ";
+                                        echo $log_a;
+                                    }
+                                }
+                                
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- the delete user popup confirmation -->
+        <section class="delete_user_popup_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Delete User?</h1>
+                <div class="py-3 px-3">
+                   <p>Are you sure you want to delete this user?</p>
+                   <div class="d-flex gap-2">
+                    <a onclick="delete_no()" class="btn btn-primary w-50 px-4 rounded-pill">No</a>
+                    <a <?php echo "href='delete_user.php?id=".$_GET["users"]."'"; ?> class="btn btn-danger px-4 w-100 rounded-pill">Yes</a>
+                   </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="disable_user_popup_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Disable User?</h1>
+                <div class="py-3 px-3">
+                   <p>Are you sure you want to Disable or Restrict this user's account?</p>
+                   <br>
+                   <p>By disabling the user's account, the user won't be able to do anything on the account</p>
+                   <div class="d-flex gap-2">
+                    <a onclick="disable_no()" class="btn btn-primary px-4 w-50 rounded-pill">No</a>
+                    <a <?php echo "href='disable_user.php?id=".$_GET["users"]."'"; ?> class="btn btn-danger px-4 w-100 rounded-pill">Yes</a>
+                   </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="resolve_user_popup_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Resolve/ Resolve User?</h1>
+                <div class="py-3 px-3">
+                   <p>Are you sure you want to Resolve this User's account?</p>
+                   <div class="d-flex gap-2">
+                    <a onclick="resolve_no()" class="btn btn-primary px-4 w-50 rounded-pill">No</a>
+                    <a <?php echo "href='resolve_user.php?id=".$_GET["users"]."'"; ?> class="btn btn-danger px-4 w-100 rounded-pill">Yes</a>
+                   </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pend Users popup -->
+        <section class="pend_user_popup_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Pend User?</h1>
+                <div class="py-3 px-3">
+                   <p>Are you sure you want to Pend  or Restrict this user's account?</p>
+                   <br>
+                   <p>By Pending the user's account, the user won't be able to do anything on the account</p>
+                   <div class="d-flex gap-2">
+                    <a onclick="pend_no()" class="btn btn-primary px-4 w-50 rounded-pill">No</a>
+                    <a <?php echo "href='pend_user.php?id=".$_GET["users"]."'"; ?> class="btn btn-danger px-4 w-100 rounded-pill">Yes</a>
+                   </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="resolve_pend_user_popup_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Resolve Pending User?</h1>
+                <div class="py-3 px-3">
+                   <p>Are you sure you want to Resolve this User's Pending account?</p>
+                   <div class="d-flex gap-2">
+                    <a onclick="resolve_pend_no()" class="btn btn-primary px-4 w-50 rounded-pill">No</a>
+                    <a <?php echo "href='resolve_pend_user.php?id=".$_GET["users"]."'"; ?> class="btn btn-danger px-4 w-100 rounded-pill">Yes</a>
+                   </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reset Password -->
+
+        <section class="reset_password_form_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden; height: 300px;">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Reset Password</h1>
+                <div class="py-3 px-3">
+                   <p> Are you sure you want to do this?</p>
+                   
+                    <br>
+                   <div class="d-flex justify-content-between">
+                    <a onclick="reset_password_no()" class="btn btn-secondary px-4">Cancel</a>
+                    <a <?php echo "href='pw_reset.php?id=".$email."'"; ?> class="btn btn-primary px-4">Submit</a>
+                   </div>
+                   
+                </div>
+            </div>
+        </section>
+
+        <!-- Reset Pin -->
+
+        <section class="reset_pin_form_bg" style="position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center">
+            <div class="rounded bg-white text-dark" style=" width:400px; overflow: hidden; height: 350px;">
+                <h1 class="text-center w-100 bg-primary text-white px-4 py-2">Reset Pin</h1>
+                <div class="py-3 px-3">
+                   <p>Are you sure you want to do this?</p>
+                   
+                    
+                    <br>
+                   <div class="d-flex justify-content-between">
+                    <a onclick="reset_pin_no()" class="btn btn-secondary px-4">No</a>
+                    <a <?php echo "href='pin_reset.php?id=".$email."'"; ?> class="btn btn-primary px-4">Yes</a>
+                   </div>
+                   
+                </div>
+            </div>
+        </section>
+       <?php
+        if(isset($_GET["selection"]) && $_GET["selection"] !== ''){
+            if($_GET["selection"] == "addmoney"){
+                include("selection/add_money.php");
+            }
+            else if($_GET["selection"] == "withdrawmoney"){
+                include("selection/withdraw_money.php");
+            }
+            else if($_GET["selection"] == "transactions"){
+                include("selection/transaction.php");
+            }
+            else if($_GET["selection"] == "editprofile"){
+                include("selection/edit_profile.php");
+            }
+        }
+        ?>
+        
+
+        
+    </div>
+    <style>
+        .delete_user_popup_bg{
+            display: none;
+        }
+        .disable_user_popup_bg{
+            display: none;
+        }
+        .resolve_user_popup_bg{
+            display: none;
+        }
+
+        .pend_user_popup_bg{
+            display: none;
+        }
+        .resolve_pend_user_popup_bg{
+            display: none;
+        }
+
+        .reset_pin_form_bg{
+            display: none;
+        }
+        .reset_password_form_bg{
+            display: none;
+        }
+    </style>
+
+    <script>
+        var delete_user_popup_bg = document.querySelector(".delete_user_popup_bg");
+        function delete_user_popup(){
+            delete_user_popup_bg.style.display="flex";
+        }
+        function delete_no(){
+            delete_user_popup_bg.style.display = "none";
+        }
+
+        var disable_user_popup_bg = document.querySelector(".disable_user_popup_bg");
+        function disable_user_popup(){
+            disable_user_popup_bg.style.display="flex";
+        }
+        function disable_no(){
+            disable_user_popup_bg.style.display = "none";
+        }
+
+        var resolve_user_popup_bg = document.querySelector(".resolve_user_popup_bg");
+        function resolve_user_popup(){
+            resolve_user_popup_bg.style.display="flex";
+        }
+        function resolve_no(){
+            resolve_user_popup_bg.style.display = "none";
+        }
+
+        //user pending
+        var pend_user_popup_bg = document.querySelector(".pend_user_popup_bg");
+        function pend_user_popup(){
+            pend_user_popup_bg.style.display="flex";
+        }
+        function pend_no(){
+            pend_user_popup_bg.style.display = "none";
+        }
+
+        var resolve_pend_user_popup_bg = document.querySelector(".resolve_pend_user_popup_bg");
+        function resolve_pend_user_popup(){
+            resolve_pend_user_popup_bg.style.display="flex";
+        }
+        function resolve_pend_no(){
+            resolve_pend_user_popup_bg.style.display = "none";
+        }
+        //reset pin
+        var reset_pin_form_bg = document.querySelector(".reset_pin_form_bg");
+        function reset_pin_form(){
+            reset_pin_form_bg.style.display="flex";
+        }
+        function reset_pin_no(){
+            reset_pin_form_bg.style.display = "none";
+        }
+
+        var reset_password_form_bg = document.querySelector(".reset_password_form_bg");
+        function reset_password_form(){
+            reset_password_form_bg.style.display="flex";
+        }
+        function reset_password_no(){
+            reset_password_form_bg.style.display = "none";
+        }
+    </script>
+</main>

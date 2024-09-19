@@ -1,0 +1,334 @@
+<?php
+if(isset($_GET["v"])){
+    if($_GET["v"] == "cancel"){
+        //cancel nin_upload
+        $id = $_GET["id"];
+        $reason = $_POST["reason"];
+        //add the users to the verification request list
+        $cancel_nin = file_get_contents("verification_requests.l");
+        // Sample array
+        $myArray = explode(",",$cancel_nin);
+
+        // Element to search and remove
+        $elementToRemove = $_GET["id"];
+
+
+        // Search for the element
+        $index = array_search($elementToRemove, $myArray);
+
+        // Check if the element is found
+        if ($index !== false) {
+            // Remove the element
+            unset($myArray[$index]);
+            echo "Element '$elementToRemove' removed successfully.<br>";
+            $my_a = implode(",",$myArray);
+            file_put_contents("verification_requests.l", $my_a);
+
+            // Optional: Re-index the array if needed
+            $myArray = array_values($myArray);
+        } else {
+            echo "Element '$elementToRemove' not found in the array.<br>";
+        }
+
+        //change the nin to 000
+        file_put_contents("../users/".$id."/transactions/security/nin","000");
+        // Print the updated array
+        echo "Updated Array:<br>";
+        print_r($myArray);
+
+        header("location: ./?r=verifications");
+        $_SESSION["rrr"] = "You have successfully Cancelled the verification of a user!";
+
+        //send notification to user
+        $noti = file_get_contents("../users/".$id."/notiitem.txt");
+        $new_noti = "<section id='notification_items' style='border-bottom:solid 1px gray; display:flex;flex-direction:column;gap:5px'>
+                <p class='lead'>Your NIN verification request was Rejected by the admin - $reason</p>
+                
+                </section>";
+        file_put_contents("../users/".$id."/notiitem.txt", $new_noti."<br>".$noti);
+
+        //update the log
+        //log to activity log
+		 $log_date = date("d/m/y");
+		 $log_time = date("h:i A");
+		 $log_activity = "Your NIN verification request was Rejected by the admin - $reason ";
+
+		 $activity_log_file = "../users/".$id."/activity_log.json";
+		 $activity_log = file_get_contents($activity_log_file);
+		 $new_log = [
+		   "date"=> "".$log_date,
+		   "time"=> "".$log_time,
+		   "activity"=> "".$log_activity
+
+		 ];
+
+		 if($activity_log != ""){
+		   $decoded_activity_log = json_decode($activity_log,true);
+		   array_unshift($decoded_activity_log, $new_log);
+		   }
+		   else{
+			   $decoded_activity_log = [$new_log];
+		   }
+
+		   $json_activity_encode = json_encode($decoded_activity_log, JSON_PRETTY_PRINT);
+		   // $file_activity = fopen($activity_log_file, 'w');
+		   // fwrite($file_activity, $json_activity_encode);
+		   file_put_contents($activity_log_file, $json_activity_encode);
+		   //end
+    }
+
+    else if($_GET["v"] == "verify"){
+        // nin_upload
+        $id = $_GET["id"];
+        
+        //add the users to the verification request list
+        $v_nin = file_get_contents("verification_requests.l");
+        // Sample array
+        $myArray = explode(",",$v_nin);
+
+        // Element to search and remove
+        $elementToRemove = $_GET["id"];
+
+
+        // Search for the element
+        $index = array_search($elementToRemove, $myArray);
+
+        // Check if the element is found
+        if ($index !== false) {
+            // Remove the element
+            unset($myArray[$index]);
+            echo "Element '$elementToRemove' removed successfully.<br>";
+            $my_a = implode(",",$myArray);
+            file_put_contents("verification_requests.l", $my_a);
+
+            // Optional: Re-index the array if needed
+            $myArray = array_values($myArray);
+        } else {
+            echo "Element '$elementToRemove' not found in the array.<br>";
+        }
+
+        //change the nin to 000
+        $nin_file = "../users/".$id."/transactions/security/nin";
+        $nin_v_file = "../users/".$id."/transactions/security/v.verified";
+        $nin_f =file_get_contents($nin_file);
+        $nin_file_c = file_get_contents($nin_v_file);
+        $nin_file_c_array = explode(",", $nin_file_c);
+        $nin_file_c_array[1] = $nin_f;
+        $r_nin = implode(",", $nin_file_c_array);
+        file_put_contents($nin_v_file,$r_nin);
+        file_put_contents("../users/".$id."/transactions/security/nin","0");
+        // Print the updated array
+        echo "Updated Array:<br>";
+        print_r($myArray);
+
+        header("location: ./?r=verifications");
+        $_SESSION["rrr"] = "You have successfully Verified this User!";
+
+        //send notification to user
+        $noti = file_get_contents("../users/".$id."/notiitem.txt");
+        $new_noti = "<section id='notification_items' style='border-bottom:solid 1px gray; display:flex;flex-direction:column;gap:5px'>
+                <p class='lead'>Your NIN verification request was Approved by the admin</p>
+                
+                </section>";
+        file_put_contents("../users/".$id."/notiitem.txt", $new_noti."<br>".$noti);
+
+        //update the log
+        //log to activity log
+		 $log_date = date("d/m/y");
+		 $log_time = date("h:i A");
+		 $log_activity = "Your NIN verification request was Approved by the admin - $reason ";
+
+		 $activity_log_file = "../users/".$id."/activity_log.json";
+		 $activity_log = file_get_contents($activity_log_file);
+		 $new_log = [
+		   "date"=> "".$log_date,
+		   "time"=> "".$log_time,
+		   "activity"=> "".$log_activity
+
+		 ];
+
+		 if($activity_log != ""){
+		   $decoded_activity_log = json_decode($activity_log,true);
+		   array_unshift($decoded_activity_log, $new_log);
+		   }
+		   else{
+			   $decoded_activity_log = [$new_log];
+		   }
+
+		   $json_activity_encode = json_encode($decoded_activity_log, JSON_PRETTY_PRINT);
+		   // $file_activity = fopen($activity_log_file, 'w');
+		   // fwrite($file_activity, $json_activity_encode);
+		   file_put_contents($activity_log_file, $json_activity_encode);
+		   //end
+    }
+}
+?>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"><small>Dashboard</small> / Verifications</li>
+        </ol>
+        
+        
+
+        <div>
+            <h2>All Verifications</h2>
+            <div class="my-5 px-4 py-2 shadow">
+                <?php
+        $all_req =  file_get_contents("verification_requests.l");
+        if($all_req == ""){
+            echo "No Request yet";
+        }
+        else{
+            if(strpos($all_req, ",") !== FALSE){
+                //it is an array
+                $all_req_array = explode(",", $all_req);
+                for($i=0; $i< count($all_req_array); $i++){
+                    $user_details_file = file_get_contents("../users/".$all_req_array[$i]."/info.inf");
+                $user_details = explode("&,", $user_details_file);
+                    $full_name = $user_details[0];
+                    $r_username = $user_details[1];
+                    $r_id = $user_details[8];
+                    $user_nin = file_get_contents("../users/".$all_req_array[$i]."/transactions/security/nin");
+                    $user_nin_image_file = "../users/".$all_req_array[$i]."/transactions/security/nin_image.jpg";
+                    $user_image_file = "../users/".$all_req_array[$i]."/images/avatar.jpg";
+    
+                    $output = "<div class=\"d-flex justify-content-between gap-2 align-items-center\">
+                        <div class=\"d-flex gap-3 align-items-center justify-content-between\">
+                            <div class=\"rounded-circle border border-1 overflow-hidden \" style=\"width:100px; height:100px\">
+                                <img src=\"".$user_image_file."\" style=\"width:100%; height:initial\">
+                            </div>
+                            <div class=\"d-flex flex-column \">
+                                <label class=\"lead\">$full_name</label>
+                                <a style=\"font-style: italic;\" class=\"text-muted text-decoration-none\">$r_username/ $r_id</a>
+                            </div>
+                        </div>
+                        <div class=\"d-flex gap-3 align-items-center\">
+                            <div>
+                                <p class=\"fw-bold\">$user_nin</p>
+                            </div>
+                            <div class=\"rounded border border-1 overflow-hidden \" style=\"width:100px; height:100px\">
+                                <img src=\"$user_nin_image_file\" style=\"width:100%; height:initial\"></div>
+                        </div>
+                        <div>
+                            <a onclick=\"cancel".$r_id."_v()\" href=\"?r=verifications&v=cancel&id=$r_id\" class=\"btn btn-danger\">Cancel Verification</a>
+                            <a href=\"?r=verifications&v=verify&id=$r_id\" class=\"btn btn-success\">Verify User</a>
+                        </div>
+                    </div>
+    
+                    <section class=\"cancel".$r_id."_user_popup_bg\" style=\"position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center\">
+                        <div class=\"rounded bg-white text-dark\" style=\" width:400px; overflow: hidden\">
+                            <h1 class=\"text-center w-100 bg-success text-white px-4 py-2\">Cancel User NIN verification?</h1>
+                            <div class=\"py-3 px-3\">
+                               <p>Are you sure you want to Cancel this user's NIN verification?</p>
+                               <div>
+                                <form method=\"post\" action=\"?r=verifications&v=cancel&id=$r_id\">
+                                    <textarea name=\"reason\" style=\"width: 90%; height: 100px\"></textarea>
+                                <a onclick=\"cancel".$r_id."_no()\" class=\"btn btn-success px-4\">No</a>
+                                <button type=\"submit\" class=\"btn btn-danger px-4\">Yes</button>
+                                </form>
+                                
+                               </div>
+                            </div>
+                        </div>
+                    </section>
+    
+                    <style>
+                        .cancel".$r_id."_user_popup_bg{
+                            display:none;
+                        }
+                    </style>
+                    <script>
+                        var cancel".$r_id."_user_popup_bg = document.querySelector(\".cancel".$r_id."_user_popup_bg\");
+                        function cancel".$r_id."_v(){
+                            cancel".$r_id."_user_popup_bg.style.display = 'flex';
+                        }
+                        function cancel".$r_id."_no(){
+                            cancel".$r_id."_user_popup_bg.style.display = 'none';
+                        }
+                    </script>
+                    <hr>";
+                    echo $output;
+                }
+            }
+            else{
+                $all_req_array = $all_req;
+                $user_details_file = file_get_contents("../users/".$all_req_array."/info.inf");
+                $user_details = explode("&,", $user_details_file);
+                    $full_name = $user_details[0];
+                    $r_username = $user_details[1];
+                    $r_id = $user_details[8];
+                    $user_nin = file_get_contents("../users/".$all_req_array."/transactions/security/nin");
+                    $user_nin_image_file = "../users/".$all_req_array."/transactions/security/nin_image.jpg";
+                    $user_image_file = "../users/".$all_req_array."/images/avatar.jpg";
+    
+                    $output = "<div class=\"d-flex justify-content-between gap-2 align-items-center\">
+                        <div class=\"d-flex gap-3 align-items-center justify-content-between\">
+                            <div class=\"rounded-circle border border-1 overflow-hidden \" style=\"width:100px; height:100px\">
+                                <img src=\"".$user_image_file."\" style=\"width:100%; height:initial\">
+                            </div>
+                            <div class=\"d-flex flex-column \">
+                                <label class=\"lead\">$full_name</label>
+                                <a style=\"font-style: italic;\" class=\"text-muted text-decoration-none\">$r_username/ $r_id</a>
+                            </div>
+                        </div>
+                        <div class=\"d-flex gap-3 align-items-center\">
+                            <div>
+                                <p class=\"fw-bold\">$user_nin</p>
+                            </div>
+                            <div class=\"rounded border border-1 overflow-hidden \" style=\"width:100px; height:100px\">
+                                <img src=\"$user_nin_image_file\" style=\"width:100%; height:initial\"></div>
+                        </div>
+                        <div>
+                            <a onclick=\"cancel".$r_id."_v()\" class=\"btn btn-danger\">Cancel Verification</a>
+                            <a href=\"?r=verifications&v=verify&id=$r_id\" class=\"btn btn-success\">Verify User</a>
+                        </div>
+                    </div>
+                    
+                    <section class=\"cancel".$r_id."_user_popup_bg\" style=\"position: fixed; left:0px;top:0px; width: 100%; height: 100%; background: rgba(0,0,0,0.5); flex-direction: column; align-items: center; justify-content: center\">
+                        <div class=\"rounded bg-white text-dark\" style=\" width:400px; overflow: hidden\">
+                            <h1 class=\"text-center w-100 bg-success text-white px-4 py-2\">Cancel User NIN verification?</h1>
+                            <div class=\"py-3 px-3\">
+                               <p>Are you sure you want to Cancel this user's NIN verification?</p>
+                               <div>
+                                <form method=\"post\" action=\"?r=verifications&v=cancel&id=$r_id\">
+                                    <textarea name=\"reason\" style=\"width: 90%; height: 100px\"></textarea>
+                                <a onclick=\"cancel".$r_id."_no()\" class=\"btn btn-success px-4\">No</a>
+                                <button type=\"submit\" class=\"btn btn-danger px-4\">Yes</button>
+                                </form>
+                                
+                               </div>
+                            </div>
+                        </div>
+                    </section>
+    
+                    <style>
+                        .cancel".$r_id."_user_popup_bg{
+                            display:none;
+                        }
+                    </style>
+                    <script>
+                        var cancel".$r_id."_user_popup_bg = document.querySelector(\".cancel".$r_id."_user_popup_bg\");
+                        function cancel".$r_id."_v(){
+                            cancel".$r_id."_user_popup_bg.style.display = 'flex';
+                        }
+                        function cancel".$r_id."_no(){
+                            cancel".$r_id."_user_popup_bg.style.display = 'none';
+                        }
+                    </script>
+                    ";
+                    echo $output;
+            }
+        }
+        
+        ?>
+            </div>
+            
+        </div>
+        
+        
+        
+        
+    </div>
+</main>

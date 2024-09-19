@@ -1,0 +1,524 @@
+{
+    "0": {
+        "name": "Mummy",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "12",
+        "s_quantity": "10",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "1": {
+        "name": "Mummy",
+        "product": "Medium cream",
+        "price": "600",
+        "quantity": "3",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "2": {
+        "name": "Mummy",
+        "product": "Smallest cream",
+        "price": "300",
+        "quantity": "9",
+        "s_quantity": "10",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "3": {
+        "name": "Mummy",
+        "product": "2000 cream",
+        "price": "2000",
+        "quantity": "3",
+        "s_quantity": "10",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "4": {
+        "name": "Daddy",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "32",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "5": {
+        "name": "Mummy",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "20",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "6": {
+        "name": "Etiosa",
+        "product": "Hair cream",
+        "price": "600",
+        "quantity": "4",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "7": {
+        "name": "Etiosa",
+        "product": "Spray and sleep",
+        "price": "500",
+        "quantity": "3",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "8": {
+        "name": "Etiosa",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "6",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "9": {
+        "name": "Etiosa",
+        "product": "Medium cream",
+        "price": "600",
+        "quantity": "4",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "10": {
+        "name": "Etiosa",
+        "product": "Delightsomerose",
+        "price": "400",
+        "quantity": "5",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "11": {
+        "name": "Etiosa",
+        "product": "Mouthwash",
+        "price": "400",
+        "quantity": "11",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "12": {
+        "name": "Uyi",
+        "product": "Hair cream",
+        "price": "600",
+        "quantity": "6",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "13": {
+        "name": "Uyi",
+        "product": "Spray and sleep",
+        "price": "500",
+        "quantity": "2",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "14": {
+        "name": "Uyi",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "12",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "15": {
+        "name": "Uyi",
+        "product": "Lotion",
+        "price": "1500",
+        "quantity": "1",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "16": {
+        "name": "Uyi",
+        "product": "1000 cream",
+        "price": "1000",
+        "quantity": "2",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "17": {
+        "name": "Uyi",
+        "product": "Medium cream",
+        "price": "600",
+        "quantity": "11",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "18": {
+        "name": "Uyi",
+        "product": "Delightsomerose",
+        "price": "400",
+        "quantity": "10",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "19": {
+        "name": "Uyi",
+        "product": "Mouthwash",
+        "price": "400",
+        "quantity": "18",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "20": {
+        "name": "Osas",
+        "product": "2000 cream",
+        "price": "2000",
+        "quantity": "1",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "21": {
+        "name": "Osas",
+        "product": "Hair cream",
+        "price": "500",
+        "quantity": "6",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "22": {
+        "name": "Osas",
+        "product": "Spray and sleep",
+        "price": "500",
+        "quantity": "6",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "23": {
+        "name": "Osas",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "12",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "24": {
+        "name": "Osas",
+        "product": "Lotion",
+        "price": "1500",
+        "quantity": "2",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "25": {
+        "name": "Osas",
+        "product": "1000 cream",
+        "price": "1000",
+        "quantity": "1",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "26": {
+        "name": "Osas",
+        "product": "Medium cream",
+        "price": "600",
+        "quantity": "10",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "27": {
+        "name": "Osas",
+        "product": "Delightsomerose",
+        "price": "400",
+        "quantity": "8",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "28": {
+        "name": "Osas",
+        "product": "Mouthwash",
+        "price": "400",
+        "quantity": "12",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "29": {
+        "name": "Nosa",
+        "product": "Hair cream",
+        "price": "500",
+        "quantity": "6",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "30": {
+        "name": "Nosa",
+        "product": "Spray and sleep",
+        "price": "500",
+        "quantity": "10",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "31": {
+        "name": "Nosa",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "8",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "32": {
+        "name": "Nosa",
+        "product": "Lotion",
+        "price": "1500",
+        "quantity": "1",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "33": {
+        "name": "Nosa",
+        "product": "1000 cream",
+        "price": "1000",
+        "quantity": "1",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "34": {
+        "name": "Nosa",
+        "product": "Medium cream",
+        "price": "600",
+        "quantity": "8",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "35": {
+        "name": "Nosa",
+        "product": "Delightsomerose",
+        "price": "400",
+        "quantity": "10",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "36": {
+        "name": "Nosa",
+        "product": "Mouthwash",
+        "price": "400",
+        "quantity": "12",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "37": {
+        "name": "Mummy",
+        "product": "Hair cream",
+        "price": "500",
+        "quantity": "14",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "38": {
+        "name": "Mummy",
+        "product": "Oatmeal",
+        "price": "2000",
+        "quantity": "2",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "39": {
+        "name": "Mummy",
+        "product": "Spray and sleep",
+        "price": "500",
+        "quantity": "25",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "40": {
+        "name": "Mummy",
+        "product": "Lotion",
+        "price": "1000",
+        "quantity": "4",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "41": {
+        "name": "Mummy",
+        "product": "1000 cream",
+        "price": "1000",
+        "quantity": "3",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "42": {
+        "name": "Mummy",
+        "product": "Medium cream",
+        "price": "400",
+        "quantity": "15",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "43": {
+        "name": "Mummy",
+        "product": "Delightsomerose",
+        "price": "500",
+        "quantity": "15",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "44": {
+        "name": "Mummy",
+        "product": "Mouthwash",
+        "price": "500",
+        "quantity": "25",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "45": {
+        "name": "Daddy",
+        "product": "Hair cream",
+        "price": "500",
+        "quantity": "14",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "46": {
+        "name": "Daddy",
+        "product": "Spray and sleep",
+        "price": "500",
+        "quantity": "9",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "47": {
+        "name": "Daddy",
+        "product": "Lotion",
+        "price": "1000",
+        "quantity": "7",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "48": {
+        "name": "Daddy",
+        "product": "1000 cream",
+        "price": "1000",
+        "quantity": "5",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "49": {
+        "name": "Daddy",
+        "product": "Medium cream",
+        "price": "600",
+        "quantity": "15",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "50": {
+        "name": "Daddy",
+        "product": "Smallest cream",
+        "price": "400",
+        "quantity": "1",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "51": {
+        "name": "Daddy",
+        "product": "Delightsomerose",
+        "price": "400",
+        "quantity": "17",
+        "s_quantity": "0",
+        "date": "16\/09\/24",
+        "expenses": "0"
+    },
+    "52": {
+        "name": "Daddy",
+        "product": "Mouthwash",
+        "price": "400",
+        "quantity": "40",
+        "s_quantity": "5",
+        "date": "16\/09\/24",
+        "expenses": "00"
+    },
+    "53": {
+        "name": "Uyi",
+        "product": "Oatmeal",
+        "price": "3000",
+        "quantity": "1",
+        "s_quantity": "05",
+        "date": "14\/09\/24",
+        "expenses": "12000"
+    },
+    "54": {
+        "name": "Etiosa",
+        "product": "Lotion",
+        "price": "1000",
+        "quantity": "5",
+        "s_quantity": "3",
+        "date": "14\/09\/24",
+        "expenses": "2000"
+    },
+    "55": {
+        "name": "Mummy",
+        "product": "Mouthwash",
+        "price": "400",
+        "quantity": "20",
+        "s_quantity": "20",
+        "date": "14\/09\/24",
+        "expenses": "2000"
+    },
+    "56": {
+        "name": "Oba",
+        "product": "Delightsomerose",
+        "price": "400",
+        "quantity": "100",
+        "s_quantity": "0",
+        "date": "14\/09\/24",
+        "expenses": "0"
+    },
+    "16\/09\/24": {
+        "name": "Mummy",
+        "product": "Soap",
+        "price": "500",
+        "quantity": "12",
+        "s_quantity": "10",
+        "date": "18\/09\/24",
+        "expenses": "0"
+    }
+}

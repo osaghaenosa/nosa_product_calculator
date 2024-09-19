@@ -1,0 +1,131 @@
+<?php
+include("csrf_token.php");
+
+core_include("base.html");
+
+
+
+top();
+?>
+<style>
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar .navbar-brand img {
+    height: 40px;
+}
+
+.search-bar {
+    width: 40%;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+.sidebar {
+    height: 100vh;
+
+    color: white;
+    z-index: 1;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    background-color: #f3f3f3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.user-info {
+    color: #333;
+}
+
+.user-info h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.nav-link{
+    border-bottom: solid 0.5px rgba(255, 255, 255, 0.5);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    display: flex;
+    gap: 2rem;
+}
+
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar" style="background-color: var(--theme_color);">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column gap-3 py-3">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" href="#"><i class="bi bi-house-door"></i><span>My Dashboard</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#"><i class="bi bi-cart"></i><span>My Orders</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#"><i class="bi bi-shop"></i><span>My Shop</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#"><i class="bi bi-gear"></i><span>Account Settings</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#"><i class="bi bi-box-arrow-right"></i><span>Logout</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="user-profile mt-4">
+                <img src="user-image.jpg" alt="User Image" class="profile-img">
+                <div class="user-info">
+                    <h3>John Doe</h3>
+                    <p>Email: johndoe@example.com</p>
+                    <p>Membership: Premium Member</p>
+                </div>
+            </div>
+
+            <div class="user-profile mt-4">
+                <img src="user-image.jpg" alt="User Image" class="profile-img">
+                <div class="user-info">
+                    <h3>John Doe</h3>
+                    <p>Email: johndoe@example.com</p>
+                    <p>Membership: Premium Member</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+<?php
+bottom();
+?>

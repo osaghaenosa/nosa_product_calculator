@@ -1,0 +1,336 @@
+<?php
+include("csrf_token.php");
+
+core_include("base.html");
+
+
+
+top();
+?>
+<!-- <button class="btn btn-dark rounded rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; position: fixed; bottom: 120px; right: 5px;">
+    <i class="bi bi-plus" style="font-size: 30px;"></i>
+</button> -->
+<div class=" col-md-12" style="max-width: 100%; overflow-y: scroll; height: calc(100vh - 0px); color: black">
+    <div class="d-flex flex-column gap-3 px-3">
+        <div class="d-flex gap-1 px-2">
+            <a href="/"><i class="bi bi-arrow-left display-4 text-dark"></i></a>
+            <h1 class="text-center w-100 py-2 sticky-top bg-white">Sales Report</h1>
+         </div>
+
+     <br>
+     <br>
+
+     <?php
+     //get the sales.json file
+$jsonData = file_get_contents("dbase/sales.json");
+
+
+
+// Decode the JSON data into a PHP array
+$dataArray = json_decode($jsonData, true);
+
+$data_c = [];
+$g_data = [];
+$grouped = "";
+
+
+foreach($dataArray as $data){
+    $dates = $data['date'];
+    if(!isset($data_c[$dates])){
+        $data_c[$dates] = [];
+    }
+    $data_c[$dates][] = $data;
+    $grouped = $data['date'];
+    
+    
+}
+
+
+//load the dates
+$m_dates = file_get_contents("dbase/dates.csv");
+$m_dates_array = explode(",", $m_dates);
+
+$d_arr = [];
+
+for($i=0; $i<count(array_unique($m_dates_array)); $i++){
+    $d_arr = $m_dates_array[$i];
+    $before_sales = 0;
+$after_sales = 0;
+$m_products = "";
+$total_price = 0;
+$individual_price = 0;
+$individual_price_array = [];
+$individual_total_price = 0;
+$individual_total_price_s = 0;
+
+$individual_total_price_array = [];
+$individual_total_price_array_s = [];
+$individual_sale_price = 0;
+$all_profit = 0;
+$all_names = "";
+$all_names_array =[];
+
+$all_products = "";
+$all_products_array =[];
+
+$all_products_quantity = 0;
+$all_products_quantity_array =[];
+
+$all_products_quantity_a = 0;
+$all_products_quantity_a_array =[];
+
+$expenses_t = 0;
+
+    foreach($data_c[$d_arr] as $gd => $sk){
+        $before_sales += ($data_c[$d_arr][$gd]['price'] * $data_c[$d_arr][$gd]['quantity']);
+        $after_sales += ($data_c[$d_arr][$gd]['price'] * $data_c[$d_arr][$gd]['s_quantity']);
+
+        $total_price += $data_c[$d_arr][$gd]['price'];
+        $individual_price = $data_c[$d_arr][$gd]['price'];
+        array_push($individual_price_array, $individual_price);
+
+        
+
+        $total_price += $data_c[$d_arr][$gd]['price'];
+        $total_price += $data_c[$d_arr][$gd]['price'];
+
+        $all_names = $data_c[$d_arr][$gd]['name'];
+        array_push($all_names_array, $all_names);
+
+        $all_products = $data_c[$d_arr][$gd]['product'];
+        array_push($all_products_array, $all_products);
+
+        
+        $all_products_quantity = $data_c[$d_arr][$gd]['quantity'];
+
+            array_push($all_products_quantity_array, $all_products_quantity);
+
+        
+
+        $all_products_quantity_a += $data_c[$d_arr][$gd]['s_quantity'];
+        array_push($all_products_quantity_a_array, $all_products_quantity_a);
+
+        $individual_total_price = ($data_c[$d_arr][$gd]['price'] * $all_products_quantity);
+        array_push($individual_total_price_array, $individual_total_price);
+
+        $individual_total_price_s = ($data_c[$d_arr][$gd]['price'] * $all_products_quantity_a);
+        array_push($individual_total_price_array_s, $individual_total_price_s);
+        
+        $m_products .= $data_c[$d_arr][$gd]['product']." = ". $total_price."<br>";
+
+        $expenses_t += $data_c[$d_arr][$gd]['expenses'];
+        
+    }
+     ?>
+     
+     <div class="p-2 rounded border border-dark shadow w-100 bg-white">
+        <section class="text-center w-100"><span><?php echo $m_dates_array[$i]; ?></span><hr></section>
+
+     <section class="d-flex gap-2 pt-2">
+        <span class="fw-bold">Before Sales: </span>
+        <span><?php echo $before_sales; ?></span>
+    </section>
+    <section class="d-flex gap-2 pt-2">
+        <span class="fw-bold">After Sales: </span>
+        <span><?php echo $after_sales; ?></span>
+    </section>
+    <section class="d-flex gap-2 pt-2">
+        <span class="fw-bold">Expenses: </span>
+        <span><?php echo $expenses_t; ?></span>
+    </section>
+    <span style="width: 100%; position: relative; display: flex; flex-direction: row-reverse;">
+        <a onclick="<?php echo 'view_product_'.$i.'_record()'; ?>" class="btn btn-sm btn-dark px-4">View</a>
+    </span>
+ </div>
+
+ <div id="<?php echo 'my_product_'.$i.'record'; ?>" class=" flex-column gap-2 p-2 overflow-y-scroll">
+    <hr>
+    <span class="py-2 fs-3 fw-bold">Report for <?php echo $m_dates_array[$i]; ?></span>
+    <br>
+    <div class="">
+        <span class="fw-bold fs-3">Before sales</span>
+        <br>
+        <table class="w-100">
+            <tr class="border rounded border-dark">
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+
+                <?php
+                //foreach($all_names_array as $names_array){
+                  //  echo "<th>".$names_array."</th>";
+                //}
+                 ?>
+            </tr>
+            <tr class="border rounded border-dark">
+                <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($all_products_array as $products_array){
+                    echo "<span>".$products_array."</span>";
+                }
+                 ?>
+                </div></td>
+
+                <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($all_products_quantity_array as $q_array){
+                    echo "<span>".$q_array."</span>";
+                }
+                 ?>
+
+                 <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($individual_price_array as $pp_array){
+                    echo "<span>".$pp_array."</span>";
+                }
+                 ?>
+                </div></td>
+
+                <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($individual_total_price_array as $pt_array){
+                    echo "<span>".$pt_array."</span>";
+                }
+                 ?>
+                </div></td>
+                
+                
+
+            </tr>
+        </table>
+        <br>
+        
+        <br><br>
+        
+    </div>
+
+    <div class="">
+        <span class="fw-bold fs-3">After sales</span>
+        <br>
+        <table class="w-100">
+            <tr class="border rounded border-dark">
+                <th>Products</th>
+                <th>Rem. Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+
+                <?php
+                //foreach($all_names_array as $names_array){
+                  //  echo "<th>".$names_array."</th>";
+                //}
+                 ?>
+            </tr>
+            <tr class="border rounded border-dark">
+                <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($all_products_array as $products_array){
+                    echo "<span>".$products_array."</span>";
+                }
+                 ?>
+                </div></td>
+
+                <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($all_products_quantity_a_array as $qa_array){
+                    echo "<span>".$qa_array."</span>";
+                }
+                 ?>
+
+                 <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($individual_price_array as $pp_array){
+                    echo "<span>".$pp_array."</span>";
+                }
+                 ?>
+                </div></td>
+
+                <td><div class="d-flex flex-column gap-2">
+                    <?php
+                foreach($individual_total_price_array_s as $pts_array){
+                    echo "<span>".$pts_array."</span>";
+                }
+                 ?>
+                </div></td>
+                
+                
+
+            </tr>
+        </table>
+        <br>
+        
+        <span class="fw-bold fs-3">Expenses: </span>
+        <span><?php echo $expenses_t; ?></span>
+        
+        <br><br>
+        
+    </div>
+    <br>
+    <button class="btn btn-dark" onclick="<?php echo 'close_product_'.$i.'_record()'; ?>">Close</button>
+ </div>
+
+ <style>
+    #<?php echo 'my_product_'.$i.'record'; ?>{
+        display: none;
+        position: fixed;
+        top: 50px;
+        left: 0px;
+        width: 100%;
+        height: calc(100vh - 50px);
+        z-index: 10000;
+        padding-top: 70px;
+        background-color: white;
+        animation: swipe_up 0.5s linear;
+    }
+    @keyframes swipe_up {
+        from{
+            top: 200px;
+            opacity: 0;
+        }
+        to{
+            top: 40px;
+            opacity: 1;
+        }
+    }
+ </style>
+ <script>
+    var <?php echo 'my_product_'.$i.'record'; ?> = document.querySelector("#<?php echo 'my_product_'.$i.'record'; ?>");
+    function <?php echo 'view_product_'.$i.'_record()'; ?>{
+        <?php echo 'my_product_'.$i.'record'; ?>.style.display = "flex";
+    }
+    function <?php echo 'close_product_'.$i.'_record()'; ?>{
+        <?php echo 'my_product_'.$i.'record'; ?>.style.display = "none";
+    }
+    
+ </script>
+
+     <?php
+}
+
+     ?>
+
+    
+
+     <!-- <div class="p-2 rounded border border-dark shadow w-100 bg-white">
+        <section class="text-center w-100"><span>16/12/2024</span><hr></section>
+        <section class="d-flex gap-2 pt-2">
+            <span class="fw-bold">Before Sales: </span>
+            <span>2000</span>
+        </section>
+        <section class="d-flex gap-2 pt-2">
+            <span class="fw-bold">After Sales: </span>
+            <span>2000</span>
+        </section>
+        <span style="width: 100%; position: relative; display: flex; flex-direction: row-reverse;">
+            <a class="btn btn-sm btn-dark px-4">View</a>
+        </span>
+     </div> -->
+    
+    </div>
+ 
+ </div>
+ 
+
+<?php
+bottom();
+?>

@@ -1,0 +1,148 @@
+<p style="display: block;">
+<?php
+$total_people_file = "../dashboard/signups/total_people.txt";
+$total_number_file = "../dashboard/signups/total_number_24.txt"; $sid = 0;
+
+$total_number = file_get_contents($total_number_file);
+$total_people = file_get_contents($total_people_file);
+$today_user_signup = 0; $this_month_user_signup = 0;
+
+$total_number_array = explode(",",$total_number);
+
+$total_people_array =explode(",", $total_people);
+$u_ss = array();
+for($i=0; $i<count($total_people_array); $i++){
+    $signup_user_details_array = explode(".",$total_people_array[$i]);
+    $signup_user_id = $signup_user_details_array[0];
+    $signup_user_date = $signup_user_details_array[1];
+    //convert the date to array and split it by "/";
+    $signup_user_date_array = explode("/",$signup_user_date);
+    $signup_user_year =$signup_user_date_array[2];
+    $signup_user_month =$signup_user_date_array[1];
+    $signup_user_day =$signup_user_date_array[0];
+    //$real_dated = date("d/m/y");
+
+    //print_r($signup_user_day);
+
+    //get if the user has registered Today
+    
+    $real_date = date("d/m/y");
+    
+    if($signup_user_details_array[1] == $real_date){
+        $u_ss[] = $signup_user_id;
+    }
+    else{
+        $today_user_signup = 0;
+    }
+    
+}
+$today_user_signup = count($u_ss);
+for($j=0; $j<count($total_people_array); $j++){
+    $signup_user_details_arrayc = explode(".",$total_people_array[$j]);
+    $signup_user_id = $signup_user_details_arrayc[0];
+    $signup_user_date = $signup_user_details_arrayc[1];
+    //convert the date to array and split it by "/";
+    $signup_user_date_array = explode("/",$signup_user_date);
+    $signup_user_year =$signup_user_date_array[2];
+    $signup_user_month =$signup_user_date_array[1];
+    $signup_user_day =$signup_user_date_array[0];
+
+    //print_r($signup_user_day);
+
+    $real_date = date("d/m/y");
+    
+    //for the month, we convert the current date to an array and get the mmonth
+    $c_date_array = explode("/",$real_date);
+    if($signup_user_month == $c_date_array[1] && $signup_user_year == $c_date_array[2]){
+        $sid = [];
+        //array_push($sid, $signup_user_id);
+        //$sid[$i] = 
+        //print_r($sid);
+        //echo $signup_user_id;
+        
+        $this_month_user_signup = $j+1;
+    }
+    //echo $real_date;
+}
+
+?>
+</p>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"><small>Dashboard</small> / Statistics</li>
+        </ol>
+        
+        <div class="d-flex flex-wrap align-items-center justify-content-center gap-1">
+            <div class="rounded px-3 py-1 pb-5 bg-light shadow-lg my-5" style="width: 300px; height: initial;display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <label class="rounded-circle bg-primary shadow" style="width: 100px;height: 100px;display: flex;justify-content: center;align-items: center;position: relative; top:-50px">
+                    <span class="text-light lead fw-bold"><?php echo $today_user_signup; ?></span>
+                </label>
+                <label class="text-center display-6">
+                    New User Signup's for <b>Today</b>
+                </label>
+            </div>
+            <div class="rounded px-3 py-1 pb-5 bg-light shadow-lg my-5" style="width: 300px; height: initial;display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <label class="rounded-circle bg-secondary shadow" style="width: 100px;height: 100px;display: flex;justify-content: center;align-items: center;position: relative; top:-50px">
+                    <span class="text-light lead fw-bold"><?php echo $this_month_user_signup; ?></span>
+                </label>
+                <label class="text-center display-6">
+                    New User Signup's for <b>This Month</b>
+                </label>
+            </div>
+            
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Total USers Signups
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Total Users</th>
+                            
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Total Users</th>
+                            
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <?php
+                        $real_date = date("d/m/y");
+                        $real_date_array = explode("/",$real_date);
+
+                        for($x=$real_date_array[1]; $x>0; $x--){
+
+                            $mn = $x+-1;
+                            echo "<tr>
+                                <td>20$real_date_array[2]</td>
+                                <td>$x</td>
+                                <td>$total_number_array[$mn]</td>
+                                
+                            </tr>";
+                            }
+                            
+
+                            
+                         ?>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+    </div>
+</main>

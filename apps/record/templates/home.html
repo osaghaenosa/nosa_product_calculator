@@ -1,0 +1,445 @@
+<?php
+include("csrf_token.php");
+
+core_include("base.html");
+
+
+
+top();
+?>
+
+<div class=" col-md-12" style="max-width: 100%; overflow-y: scroll; height: calc(100vh - 0px); color: black">
+    <div class="d-flex flex-column gap-3">
+     <div class="d-flex gap-1 px-2">
+        <a href="/"><i class="bi bi-arrow-left display-4 text-dark"></i></a>
+        <h1 class="text-center w-100 py-2 sticky-top bg-white">Record daily sales</h1>
+     </div>
+
+     <div class="d-flex justify-content-center align-items-center flex-column gap-2 se_btn">
+       
+        <button id="sales_btn" class="btn btn-dark">Add Record</button>
+        <br><br>
+
+        <?php
+        if(!isset($_GET["date"])){
+            ?>
+            <span class="text-center text-black fs-3">You have not selected date yet</span>
+        <?php
+        }
+        else{
+            if($_GET["date"] == ""){
+            ?>
+            <span class="text-center text-black fs-3">You have not selected date yet</span>
+            <?php
+            }
+            else{
+                ?>
+            <span class="text-center text-black fs-3"><?php echo $_GET["date"]; ?></span>
+
+        <?php
+        }
+        }
+        ?>
+
+
+     </div>
+     <br>
+     <?php
+     if(!isset($_GET["date"])){
+        ?>
+     <div id="sales" class="date_show justify-content-center bg-white position-fixed" style="width: 100%; height: calc(100% - 30px); top: 30px; left: 0%; z-index: 1; display: none;">
+        <form method="get" action="" class="d-flex justify-content-center align-items-center flex-column" >
+            <p class="display-6 fw-bold">Select your date</p>
+            <br>
+            <input placeholder="Select Date" type="date"  id="my_date" class="form-control">
+            <input type="hidden" name="date" id="date_output">
+            <br>
+            <button class="btn btn-dark py-2 px-5" type="submit">Submit</button>
+            <br>
+            <button type="button" class="btn btn-danger px-5" id="close_btn"><i class="bi bi-x-circle-fill"></i> Close</button>
+        </form>
+        <script>
+            
+
+            document.querySelector("#my_date").onchange = function(){
+                let dateStr = document.querySelector("#my_date").value;
+
+            // Split the date string into its components
+            let parts = dateStr.split("-");
+
+            // Rearrange the components into your desired format (DD/MM/YY)
+            let formattedDate = `${parts[2]}/${parts[1]}/${parts[0].slice(-2)}`;
+            document.querySelector("#date_output").value = formattedDate;
+
+            }
+        </script>
+     </div>
+     <?php
+    }
+    else{
+     ?>
+     <form method="post" action="" id="sales" class=" flex-column gap-3 pb-4 position-fixed bg-white" style="width: 100%; height: calc(100% - 30px); top: 30px; left: 0%; display: none;">
+       
+        <hr>
+        <span class="text-center display-6" id="s_type">Add Record</span>
+        <br>
+        <span class="text-center text-black fs-3"><?php echo $_GET["date"]; ?></span>
+        <br>
+        
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["name"]) && !empty($_POST["name"])){echo "value=".$_POST["name"];} ?>
+                    type="text"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Seller Name"
+                    name="name"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Seller Name</label>
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <select
+                
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    
+                    name="product"
+                    style="width:100%;">
+                    <option selected="true" disabled> Select Product</option>
+                    <?php
+                    $pd = file_get_contents("dbase/products.csv");
+                    $pd_arr = explode(",",$pd);
+
+                    foreach($pd_arr as $pdx){
+                    ?>
+                    <option><?php echo $pdx; ?></option>
+                    <?php
+                    }
+                    ?>
+
+                </select>
+                    
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["price"]) && !empty($_POST["price"])){echo "value=".$_POST["price"];} ?>
+                    type="text"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Price"
+                    name="price"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Price</label>
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["quantity"]) && !empty($_POST["quantity"])){echo "value=".$_POST["quantity"];} ?>
+                    type="text"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Quantity"
+                    name="quantity"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Quantity</label>
+                </div>
+        </div>
+
+        <br>
+        <div class="d-flex gap-3 justify-content-center px-2">
+            <button class="btn btn-dark w-100"><i class="bi bi-check-circle-fill"></i> Save</button>
+            <button type="button" class="btn btn-danger w-100" id="close_btn"><i class="bi bi-x-circle-fill"></i> Close</button>
+
+        </div>
+
+    </form>
+
+    <?php
+    }
+    ?>
+     
+     <div class="d-flex flex-column gap-2 p-2">
+        <hr>
+        <span class="display-6 fw-bold text-center">ALL SALES for Today</span>
+        <br>
+
+        
+        <?php
+     //get the sales.json file
+$jsonData = file_get_contents("dbase/sales.json");
+
+
+
+// Decode the JSON data into a PHP array
+$dataArray = json_decode($jsonData, true);
+
+$data_c = [];
+$g_data = [];
+$grouped = "";
+
+
+foreach($dataArray as $data){
+    $dates = $data['date'];
+    if(!isset($data_c[$dates])){
+        $data_c[$dates] = [];
+    }
+    $data_c[$dates][] = $data;
+    $grouped = $data['date'];
+    
+    
+}
+
+
+//load the dates
+$m_dates = file_get_contents("dbase/dates.csv");
+$m_dates_array = explode(",", $m_dates);
+
+$d_arr = [];
+//$today_date = date("d/m/y");
+if(isset($_GET["date"])){
+    $today_date = $_GET["date"];
+
+}
+else{
+    $today_date = date("d/m/y");
+
+}
+
+
+//check for today
+if(!isset($data_c[''.$today_date])){
+    echo "<br><br><div class='text-center d-flex flex-column gap-3 align-items-center justify-content-center'><i class='bi bi-trash2-fill display-3'></i> <span class='display-6'>No Record for today</span> </div>";
+}
+else{
+
+    foreach($data_c[''.$today_date] as $gx){
+    
+
+     ?>
+        <section class="p-2 bg-dark shadow rounded d-flex flex-column">
+            <div class="d-flex gap-2 justify-content-between text-white px-2">
+                <span>Seller Name</span>
+                <span><?php echo $gx['name']; ?></span>
+            </div>
+            <div class="d-flex gap-2 justify-content-between text-white px-2">
+                <span>Product</span>
+                <span><?php echo $gx['product']; ?></span>
+            </div>
+            <div class="d-flex gap-2 justify-content-between text-white px-2">
+                <span>Price</span>
+                <span><?php echo $gx['price']; ?></span>
+            </div>
+            <div class="d-flex gap-2 justify-content-between text-white px-2">
+                <span>Initial Quantity</span>
+                <span><?php echo $gx['quantity']; ?></span>
+            </div>
+            <div class="d-flex gap-2 justify-content-between text-white px-2">
+                <span>Remaining Quantity</span>
+                <span><?php echo $gx['s_quantity']; ?></span>
+            </div>
+            <div class="d-flex gap-2 justify-content-between text-white px-2">
+                <span>Other Expenses</span>
+                <span><?php echo $gx['expenses']; ?></span>
+            </div>
+            <br>
+            <div class="d-flex flex-row-reverse">
+                <?php
+                for($x=0; $x<count($dataArray); $x++){
+if(isset($dataArray[$x])){
+                    if($gx == $dataArray[$x]){
+                        
+                   
+                ?>
+                <a href="?date=<?php echo $today_date; ?>&edit=<?php echo $x; ?>" class="btn btn-light"><i class="bi bi-pencil"></i> Edit</a>
+                <?php
+                    }
+}
+                } 
+                ?>
+            </div>
+        </section>
+        <?php
+     }
+     ?>
+     </div>
+     
+
+     
+     
+    </div>
+ 
+ </div>
+ <?php
+ if(isset($_GET["edit"]) && $_GET["edit"] != ""){
+    $sales_json = file_get_contents("dbase/sales.json");
+
+
+
+    // Decode the JSON data into a PHP array
+    $sales_data = json_decode($sales_json, true);
+    $s_key = $_GET["edit"];
+
+    $my_sales = $sales_data[$s_key];
+    ?>
+ <div class="d-flex p-2 position-fixed flex-column bg-white text-dark" style="width: 100%; height: 100%; top: 40px; left: 0px;">
+    <span class="text-black display-6 fw-bold text-center pt-5">Edit Today Sales</span>
+    <br>
+    <form class="d-flex flex-column p-2 w-100" method="post" action="?date=<?php echo $_GET['date']; ?>&edit=<?php echo $_GET['edit']; ?>">
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["name"]) && !empty($_POST["name"])){echo "value=".$_POST["name"];}else{echo "value=".$my_sales['name'];} ?>
+                    type="text"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Seller Name"
+                    name="name"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Seller Name</label>
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <select
+                
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    
+                    name="product"
+                    style="width:100%;">
+                    <option selected="true" disabled>Select Product</option>
+                    <?php
+                    $pd = file_get_contents("dbase/products.csv");
+                    $pd_arr = explode(",",$pd);
+
+                    foreach($pd_arr as $pdx){
+                    ?>
+                    <option <?php if($my_sales['product'] == $pdx){echo "selected = true";} ?>><?php echo $pdx; ?></option>
+                    <?php
+                    }
+                    ?>
+
+                </select>
+                    
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["price"]) && !empty($_POST["price"])){echo "value=".$_POST["price"];}else{echo "value=".$my_sales['price'];} ?>
+                    type="number"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Price"
+                    name="price"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Price</label>
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["quantity"]) && !empty($_POST["quantity"])){echo "value=".$_POST["quantity"];}else{echo "value=".$my_sales['quantity'];} ?>
+                    type="number"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Quantity"
+                    name="quantity"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Quantity</label>
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["s_quantity"]) && !empty($_POST["s_quantity"])){echo "value=".$_POST["s_quantity"];}else{echo "value=".$my_sales['s_quantity'];} ?>
+                    type="number"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Sold Quantity"
+                    name="s_quantity"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Sold Quantity</label>
+                </div>
+        </div>
+
+        <div class="px-3" style="display:flex">
+            <i class="bi bi-person fs-5 my-3"  style="z-index: 1; color: var(--theme_color);"></i>
+            <div class="form-floating mb-3 border border-1 border-dark" style="width:calc(100% + 2rem); margin-left: -2rem">
+                <input
+                <?php if(isset($_POST["expenses"]) && !empty($_POST["expenses"])){echo "value=".$_POST["expenses"];}else{echo "value=".$my_sales['expenses'];} ?>
+                    type="number"
+                    class="form-control ps-5"
+                    id="floatingInput"
+                    placeholder="Expenses"
+                    name="expenses"
+                    style="width:100%">
+                    <label for="floatingInput" class="ms-5">Expenses</label>
+                </div>
+        </div>
+
+        <br>
+        <div class="d-flex gap-3 justify-content-center">
+            <button type="submit" class="btn btn-dark w-100"><i class="bi bi-check-circle-fill"></i> Save</button>
+            <button onclick="window.history.back()" type="button" class="btn btn-danger w-100"><i class="bi bi-x-circle-fill"></i> Close</button>
+            
+        </div>
+    </form>
+</div>
+<?php
+ }
+ }
+ ?>
+ <br>
+ <br>
+ <style>
+    #sales{
+        display: none;
+    }
+ </style>
+
+ <script>
+    var sales = document.querySelector("#sales");
+    var sales_btn = document.querySelector("#sales_btn");
+    var s_btn = document.querySelector(".se_btn");
+    var s_type = document.querySelector("#s_type");
+    var close_btn = document.querySelector("#close_btn");
+    sales_btn.onclick = function(){
+        sales.style.display = "flex";
+        sales.action = "<?php if(isset($_GET['date'])){echo '?date='.$_GET['date'].'&add';}else{ echo '?add';} ?>";
+        s_btn.style.display = "none";
+        s_type.innerHTML = "Add Record";
+
+    }
+    close_btn.onclick = function(){
+        sales.style.display = "none";
+        s_btn.style.display = "flex";
+    }
+    
+ </script>
+
+<?php
+bottom();
+?>

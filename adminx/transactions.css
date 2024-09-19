@@ -1,0 +1,53 @@
+.big-card{
+    
+    position: relative;
+    height: 100%;
+}
+.big-card div{
+    
+}
+.big-card .flex-box{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    gap:10px;
+    height: 100%;
+}
+.grid-box{
+    display: flex;
+    gap: 3px;
+    width: 400px;
+}
+.grid-box.3{
+    
+    
+}
+grid-box.small .button{
+    font-size: 8px;
+    cursor: pointer;
+}
+.grid-box .button{
+    flex:100%;
+    background-color: whitesmoke;
+    border-radius: 0px;
+    text-align: center;
+    border: none;
+    flex: 1;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+.grid-box .button.active{
+    color: green;
+    border-bottom: solid 1px green;
+}
+.grid-box .button.null{
+    color: gray;
+    
+}
+.chart_area{
+    width:100%;
+    flex: 1;
+    background-color: whitesmoke;
+    height: 100%;
+    display: none;
+}

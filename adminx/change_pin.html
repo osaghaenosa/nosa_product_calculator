@@ -1,0 +1,50 @@
+ <div class="position-fixed d-flex align-items-start justify-content-center py-5" style="top:0; left:0; width:100%; height: 100%;background-color: rgba(0, 0, 0, 0.4);z-index: 1;" tabindex="-1" >
+                <div class="rounded bg-white" style="width: 600px; height: initial; padding: 2rem 2rem 2rem 2rem;">
+                    <h3 class="d-flex justify-content-between"><span>Change Transaction Pin</span><a href="settings" class="btn btn-close"></a></h3>
+                    <div>
+                      <?php
+                        $success = false;
+                        if(isset($_POST["t_pin"])){
+                          if($_POST["t_pin"] != ""){
+                            $file = "../users/".$_SESSION['id']."/transactions/security/secretpin.pin";
+                            file_put_contents($file,$_POST["t_pin"]);
+                            $_SESSION['tt']= "success";
+                            $error = "";
+                          }
+                          else{
+                            $error = "Please Input Something ...";
+                            
+                          }
+                        }
+                      ?>
+                        <form method="post" action="" class="d-flex flex-column gap-3">
+                          <?php
+                            if(isset($_SESSION['tt'])){
+                              echo "You have Successfully setYour Transaction Pin";
+                            }
+                          ?>
+                            <div class="input-group shadow-lg" >
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Enter 4 Digit Pin</span>
+                              </div>
+                              <input type="password" name="t_pin" aria-label="Pin" class="form-control" placeholder="Enter Pin" max="9999" maxlength="4">
+                              <span><?php if(isset($error)){if($error != ""){echo $error;}}?></span>
+
+                            </div>
+                            <div class="input-group shadow-lg" >
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Retype Pin</span>
+                              </div>
+                              <input type="paassword" aria-label="Pin" class="form-control " placeholder="Enter Pin" max="9999" maxlength="4">
+
+                            </div>
+                            
+                            
+                              
+                            <button type="submit" class="btn btn-success btn-lg shadow">Set Pin</button>
+                            
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>

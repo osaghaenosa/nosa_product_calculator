@@ -1,0 +1,129 @@
+<main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            
+                            <!-- <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Customer Care Management</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="?r=ccare_management">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body"><i class="bi-check-circle-fill"></i> User Verification Request</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="?r=verifications">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <?php
+                        $t = 1711610014;
+                        //echo date("Y-m-d", $t); 
+
+                        //display all the users in the platform
+
+                        $users_db_file = "../dbase/db.db";
+                        $user_db = fopen($users_db_file, "a+");
+
+                        $in=0;
+                        $line=[];
+                        $lpos=0;
+                        while (!feof($user_db)) {
+                            $in++;
+                            $line[]=fgets($user_db);
+                            
+                            
+                            
+                            //$idpos=strpos($line[$in],"nosa,1234");
+                            
+                        }
+
+                        for ($i=0; $i < $in; $i++) { 
+                            $linedata=explode("&,", $line[$i]);
+                            
+                                
+                            //echo "<br><br>".count($linedata)."<br>";
+
+                            
+                            
+                        }
+                        ?>
+                       
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                User Management Table
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Acc. Balance</th>
+                                            <th>Reg. Date</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Acc. Balance</th>
+                                            <th>Reg. Date</th>
+                                            
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        for ($i=0; $i < $in; $i++) { 
+                                            $linedata=explode("&,", $line[$i]);
+                                            
+                                                
+                                            //echo "<br><br>".count($linedata)."<br>";
+                
+                                            
+                                            if(isset($linedata[$i]) && $linedata[$i] != ""){
+                                                $users_full_name = $linedata[0];
+                                                $users_full_email = $linedata[2];
+                                                $users_full_balance = file_get_contents("../users/".$linedata[8]."/wallets/amount.x");
+                                                $users_reg_date = date("Y-m-d",$linedata[8]);
+                                                $nin_content = file_get_contents("../users/".$linedata[8]."/transactions/security/v.verified");
+                                                $nin_content_array = explode(",",$nin_content);
+                                                if($nin_content_array[1] <=1){
+                                                    $nin_verify = "false";
+                                                }
+                                                else{
+                                                    $nin_verify = "true";
+                                                }
+                                                
+                                                $users_d = "<a href='?r=home&users=".$linedata[8]."'><tr>
+                                                <td><a href='?r=home&users=$linedata[8]'>$users_full_name</a></td>
+                                                <td><a href='?r=home&users=".$linedata[8]."'>$users_full_email</a></td>
+                                                <td><a href='?r=home&users=".$linedata[8]."'>$users_full_balance</a></td>
+                                                <td><a href='?r=home&users=".$linedata[8]."'>$users_reg_date</a></td>
+                                                
+                                                                </tr></a>
+                                                                ";
+                                                echo $users_d;
+                                            }
+                                                            
+                                        }
+                                        
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>

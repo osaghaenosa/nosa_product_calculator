@@ -1,0 +1,35 @@
+<?php
+function showInfo($text){
+	$text="<div id=\"popupInfo\" class=\"border border-1 bg-danger text-white fw-bold position-relative px-2 py-2 mx-3\" style=\"width: 90%; height:initial; top: 0rem\">
+	<div class=\"d-flex flex-row-reverse\">
+		
+	</div>
+	
+	<p>".$text."</p>
+</div>
+<style>
+#popupInfo{
+	display: none;
+	animation: start_s 1.5s linear 2s;
+}
+@keyframes start_s{
+	from{
+		top: -50px;
+	}
+	to{
+		top: 0px;
+	}
+}
+</style>
+<script>
+var popupInfo = document.querySelector('#popupInfo');
+window.onload = function(){
+	popupInfo.style.display = 'block';
+}
+</script>
+";
+
+echo $text;
+}
+
+?>
