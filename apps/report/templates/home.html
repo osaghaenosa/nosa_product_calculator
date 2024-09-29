@@ -45,6 +45,9 @@ foreach($dataArray as $data){
     
 }
 
+//load the product
+$m_products_file = file_get_contents("dbase/products.csv");
+$m_products_array = explode(",", $m_products_file);
 
 //load the dates
 $m_dates = file_get_contents("dbase/dates.csv");
@@ -79,7 +82,26 @@ $all_products_quantity_array =[];
 $all_products_quantity_a = 0;
 $all_products_quantity_a_array =[];
 
+$resultm = 0;
+
 $expenses_t = 0;
+
+$resultm = array_reduce($data_c[$d_arr], function($carry, $item){
+    if (isset($carry[$item['product']])) {
+        // Add the current item's price to the existing price
+        $carry[$item['product']]['price'] += $item['price'];
+
+        // Add the current item's quantity to the existing price
+        $carry[$item['product']]['quantity'] += $item['quantity'];
+
+        // Add the current item's rem quantity to the existing price
+        $carry[$item['product']]['s_quantity'] += $item['s_quantity'];
+    } else {
+        // Initialize the product entry with price
+        $carry[$item['product']] = ['product' => $item['product'], 'price' => $item['price'], 'quantity' => $item['quantity'], 's_quantity' => $item['s_quantity']];
+    }
+    return $carry;
+}, []); // Initialize $carry as an empty array
 
     foreach($data_c[$d_arr] as $gd => $sk){
         $before_sales += ($data_c[$d_arr][$gd]['price'] * $data_c[$d_arr][$gd]['quantity']);
@@ -119,6 +141,8 @@ $expenses_t = 0;
         $m_products .= $data_c[$d_arr][$gd]['product']." = ". $total_price."<br>";
 
         $expenses_t += $data_c[$d_arr][$gd]['expenses'];
+
+        
         
     }
      ?>
@@ -147,6 +171,9 @@ $expenses_t = 0;
     <hr>
     <span class="py-2 fs-3 fw-bold">Report for <?php echo $m_dates_array[$i]; ?></span>
     <br>
+    
+       
+    
     <div class="">
         <span class="fw-bold fs-3">Before sales</span>
         <br>
@@ -166,32 +193,34 @@ $expenses_t = 0;
             <tr class="border rounded border-dark">
                 <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($all_products_array as $products_array){
-                    echo "<span>".$products_array."</span>";
+                foreach(array_unique($all_products_array) as $m_products_array){
+                    echo "<span>".$resultm[$m_products_array]['product']."</span>";
                 }
                  ?>
                 </div></td>
 
                 <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($all_products_quantity_array as $q_array){
-                    echo "<span>".$q_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        echo "<span>".$resultm[$m_products_array]['quantity']."</span>";
+                    }
+                
                  ?>
 
                  <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($individual_price_array as $pp_array){
-                    echo "<span>".$pp_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        echo "<span>".$resultm[$m_products_array]['price']."</span>";
+                    }
                  ?>
                 </div></td>
 
                 <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($individual_total_price_array as $pt_array){
-                    echo "<span>".$pt_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        $total_sum = $resultm[$m_products_array]['quantity'] * $resultm[$m_products_array]['price'];
+                        echo "<span>".$total_sum."</span>";
+                    }
                  ?>
                 </div></td>
                 
@@ -224,32 +253,33 @@ $expenses_t = 0;
             <tr class="border rounded border-dark">
                 <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($all_products_array as $products_array){
-                    echo "<span>".$products_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        echo "<span>".$resultm[$m_products_array]['product']."</span>";
+                    }
                  ?>
                 </div></td>
 
                 <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($all_products_quantity_a_array as $qa_array){
-                    echo "<span>".$qa_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        echo "<span>".$resultm[$m_products_array]['s_quantity']."</span>";
+                    }
                  ?>
 
                  <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($individual_price_array as $pp_array){
-                    echo "<span>".$pp_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        echo "<span>".$resultm[$m_products_array]['price']."</span>";
+                    }
                  ?>
                 </div></td>
 
                 <td><div class="d-flex flex-column gap-2">
                     <?php
-                foreach($individual_total_price_array_s as $pts_array){
-                    echo "<span>".$pts_array."</span>";
-                }
+                    foreach(array_unique($all_products_array) as $m_products_array){
+                        $total_sum = $resultm[$m_products_array]['s_quantity'] * $resultm[$m_products_array]['price'];
+                        echo "<span>".$total_sum."</span>";
+                    }
                  ?>
                 </div></td>
                 
