@@ -89,7 +89,7 @@ $expenses_t = 0;
 $resultm = array_reduce($data_c[$d_arr], function($carry, $item){
     if (isset($carry[$item['product']])) {
         // Add the current item's price to the existing price
-        $carry[$item['product']]['price'] += $item['price'];
+        $carry[$item['product']]['price'] = $item['price'];
 
         // Add the current item's quantity to the existing price
         $carry[$item['product']]['quantity'] += $item['quantity'];
@@ -240,7 +240,7 @@ $resultm = array_reduce($data_c[$d_arr], function($carry, $item){
         <table class="w-100">
             <tr class="border rounded border-dark">
                 <th>Products</th>
-                <th>Rem. Quantity</th>
+                <th><small style="font-size: small;">Sold Quantity</small></th>
                 <th>Price</th>
                 <th>Total Price</th>
 

@@ -224,10 +224,10 @@ if(!isset($data_c[''.$today_date])){
     echo "<br><br><div class='text-center d-flex flex-column gap-3 align-items-center justify-content-center'><i class='bi bi-trash2-fill display-3'></i> <span class='display-6'>No Record for today</span> </div>";
 }
 else{
-
+    array_multisort($data_c[''.$today_date]);
+        
     foreach($data_c[''.$today_date] as $gx){
-    
-
+  
      ?>
         <section class="p-2 bg-dark shadow rounded d-flex flex-column">
             <div class="d-flex gap-2 justify-content-between text-white px-2">
